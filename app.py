@@ -199,7 +199,6 @@ def process_file(file, query, expected_output):
     
     return results
 
-# Create the Gradio interface
 interface = gr.Interface(
     fn=process_file,
     inputs=[
@@ -208,8 +207,20 @@ interface = gr.Interface(
         gr.Textbox(label="Expected Output")
     ],
     outputs="text",
-    title="File Analyzer",
-    description="Upload a file (CSV, PDF, DOCX, TXT, JSON) and enter your query to get detailed information."
+    title="DataWizardZ",
+    description=(
+        "Upload a file (CSV, PDF, DOCX, TXT, JSON) and enter your query to get detailed information.\n\n"
+        "### Instructions:\n"
+        "1. Upload the file you want to talk to.\n"
+        "2. Enter your question in the Query field.\n"
+        "3. Specify the desired output format, e.g., one line answer.\n"
+        "4. Please be patient; it can take up to 300ms for effective results, especially for large files or one-word answers.\n"
+        "5. Please note that DO NOT specify Expected Output for .CSV Files."
+    ),
+    examples=[
+        ["LabManual_cnn.pdf", "How to setup wired LAN", "A short summary"],
+        ["house_prices.csv", "What is the average price of houses in Thane"]
+    ]
 )
 
 # Launch the Gradio interface
